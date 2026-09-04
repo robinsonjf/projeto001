@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  --color-surface-light: #EAEAE5;
+
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+}

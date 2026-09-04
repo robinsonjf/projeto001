@@ -1,0 +1,35 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'light';
+  icon?: string;
+  href?: string;
+}
+
+const { variant = 'primary', icon, href } = Astro.props;
+
+const variants = {
+  primary: "group relative px-8 py-4 bg-stone-900 text-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 inline-flex items-center justify-center",
+  secondary: "group px-8 py-4 bg-white text-stone-900 rounded-lg shadow-md hover:shadow-lg border border-transparent hover:border-stone-200 transition-all hover:-translate-y-1 flex items-center gap-2",
+  light: "relative group/btn overflow-hidden rounded-lg bg-white text-black px-8 py-3 font-medium text-sm hover:scale-105 transition-transform inline-flex items-center justify-center"
+};
+
+const Element = href ? 'a' : 'button';
+---
+<Element href={href} class={variants[variant]}>
+  {variant === 'light' ? (
+    <>
+      <span class="relative z-10 flex items-center gap-2">
+        <slot />
+        {icon && <iconify-icon icon={icon}></iconify-icon>}
+      </span>
+      <div class="absolute inset-0 bg-stone-200 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
+    </>
+  ) : (
+    <>
+      <span class="relative z-10 text-sm font-medium tracking-wide flex items-center gap-2">
+        <slot />
+        {icon && <iconify-icon icon={icon} class="group-hover:translate-y-0.5 transition-transform"></iconify-icon>}
+      </span>
+    </>
+  )}
+</Element>

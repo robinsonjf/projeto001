@@ -1,0 +1,38 @@
+---
+interface Props {
+  words?: string[];
+}
+
+const { words = ["Precisão", "Elegância", "Design Suíço", "Ergonomia", "Leveza", "Inspiração", "Perfeição", "Fluidez", "Criatividade", "Inovação"] } = Astro.props;
+---
+<section class="relative z-20 bg-black py-1 overflow-hidden border-t border-b border-stone-800">
+  <div class="flex whitespace-nowrap overflow-hidden">
+    <div class="flex animate-marquee gap-12 text-white font-cursive text-3xl md:text-4xl leading-normal select-none">
+      {words.concat(words).map((word) => (
+        <span class="flex items-center gap-12">
+          <span class="inline-block px-1 py-1">{word}</span>
+          <span class="text-stone-600 text-lg font-sans">•</span>
+        </span>
+      ))}
+    </div>
+    <div class="flex animate-marquee gap-12 text-white font-cursive text-3xl md:text-4xl leading-normal select-none" aria-hidden="true">
+      {words.concat(words).map((word) => (
+        <span class="flex items-center gap-12">
+          <span class="inline-block px-1 py-1">{word}</span>
+          <span class="text-stone-600 text-lg font-sans">•</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 50s linear infinite;
+  }
+</style>
