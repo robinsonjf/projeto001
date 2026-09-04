@@ -1,14 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
-    <Header />
-    <main class="container mx-auto px-6 py-32 min-h-screen">
-        <h1 class="text-4xl font-display font-bold text-stone-900">Página em Branco</h1>
-        <p class="mt-4 text-stone-600">Esta é a sua nova página. Você pode adicionar conteúdo aqui.</p>
+    <main class="flex flex-col items-center justify-center min-h-[75vh] w-full text-center px-6">
+        <div class="inline-flex items-center mb-6 px-3 py-1 bg-stone-100/80 rounded-full border border-stone-200 text-xs font-mono text-stone-500 tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2"></span>
+            Página em branco
+        </div>
+        <h1 class="text-5xl md:text-6xl font-display font-light text-stone-900 mb-4 tracking-tight">Segunda Página</h1>
+        <p class="text-stone-500 font-light max-w-sm mx-auto text-sm md:text-base leading-relaxed">
+            Sua nova página foi criada com sucesso. Adicione os componentes e o conteúdo que desejar aqui.
+        </p>
     </main>
-    <Footer />
 </Layout>
