@@ -3,7 +3,9 @@ interface Props {
   videoSrc?: string;
 }
 
-const { videoSrc = `${import.meta.env.BASE_URL}/assets/raw_files/video.mp4` } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL;
+const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+const { videoSrc = `${cleanBase}/assets/raw_files/video.mp4` } = Astro.props;
 ---
 <section class="relative z-20 w-full bg-black overflow-hidden aspect-video md:aspect-auto md:h-[180px]">
   <video 
