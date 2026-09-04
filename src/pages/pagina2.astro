@@ -24,7 +24,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
             {products.map((pen) => (
                 <div class="group relative bg-white rounded-md border border-stone-300/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden">
                     <!-- Área da Imagem com Badges -->
-                    <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="w-full aspect-[4/3] bg-stone-200 relative overflow-hidden border-b border-stone-200 block">
+                    <a href={`${cleanBase}/pagina3/${pen.id}/`} class="w-full aspect-[4/3] bg-stone-200 relative overflow-hidden border-b border-stone-200 block">
                         <!-- Badges Sobrepostos -->
                         <div class="absolute top-3 left-3 z-10">
                             <span class="px-2.5 py-1 bg-stone-900 text-white text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
@@ -41,7 +41,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     
                     <!-- Conteúdo do Card -->
                     <div class="p-6 flex flex-col flex-grow">
-                        <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="hover:underline">
+                        <a href={`${cleanBase}/pagina3/${pen.id}/`} class="hover:underline">
                             <h3 class="text-xl font-display font-medium text-stone-900 mb-2 tracking-tight">{pen.name}</h3>
                         </a>
                         <p class="text-stone-500 text-xs font-light leading-relaxed mb-6 flex-grow">
@@ -65,7 +65,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                         </div>
 
                         <!-- Botão AVISE-ME de Largura Total -->
-                        <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
+                        <a href={`${cleanBase}/pagina3/${pen.id}/`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
                             <iconify-icon icon="solar:bell-linear" class="text-sm"></iconify-icon>
                             AVISE-ME
                         </a>
