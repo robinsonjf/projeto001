@@ -1,16 +1,59 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+
+const catalog = [
+  { name: 'CAROLINE Precision Core', desc: 'Edição fundida em alumínio aeroespacial com fluxo contínuo. Perfeita para uso técnico rigoroso e traços longos.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Onyx Black', desc: 'Acabamento fosco texturizado a laser com peso balanceado na ponta. O equilíbrio perfeito para esboços diários.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Pearl Edition', desc: 'Superfície de cerâmica branca impecável. Design atemporal e grip otimizado para quem busca a mais alta sofisticação.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Titanium Grip', desc: 'Estrutura ultra-leve e hiper-resistente esculpida em titânio maciço. A ferramenta definitiva para criadores exigentes.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Signature Gold', desc: 'Detalhes refinados banhados a ouro 18k com precisão micrométrica. Uma verdadeira joia para assinaturas de impacto.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Obsidian', desc: 'Tinta especial de alta viscosidade com núcleo alongado e estrutura escura. Máxima autonomia sem perder o estilo.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Carbon Fiber', desc: 'A leveza indescritível do carbono combinada com o balanço de chumbo. A caneta pesa surpreendentes 12 gramas.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Aqua Flow', desc: 'Avançada tecnologia com traço ultrafino de 0.3mm e fluido nanotecnológico hidrofóbico resistente à umidade.', image: '/assets/raw_files/pen_catalog.jpg' },
+  { name: 'CAROLINE Master Tech', desc: 'Exclusiva regulação por capilaridade assistida que impede totalmente falhas, vazamentos ou excessos de tinta na folha.', image: '/assets/raw_files/pen_catalog.jpg' },
+];
 ---
 
 <Layout>
-    <main class="flex flex-col items-center justify-center min-h-[75vh] w-full text-center px-6">
-        <div class="inline-flex items-center mb-6 px-3 py-1 bg-stone-100/80 rounded-full border border-stone-200 text-xs font-mono text-stone-500 tracking-widest uppercase">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-2"></span>
-            Página em branco
+    <main class="flex flex-col items-start min-h-[75vh] w-full px-6 py-24 md:py-32 max-w-7xl mx-auto">
+        <!-- Header da Página -->
+        <div class="inline-flex items-center mb-6 px-3 py-1 bg-stone-100 rounded-full border border-stone-200 text-xs font-mono text-stone-500 tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-stone-400 mr-2"></span>
+            Coleção Oficial
         </div>
-        <h1 class="text-5xl md:text-6xl font-display font-light text-stone-900 mb-4 tracking-tight">Segunda Página</h1>
-        <p class="text-stone-500 font-light max-w-sm mx-auto text-sm md:text-base leading-relaxed">
-            Sua nova página foi criada com sucesso. Adicione os componentes e o conteúdo que desejar aqui.
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-stone-900 mb-6 tracking-tight text-left">Catálogo de Produtos</h1>
+        <p class="text-stone-500 font-light max-w-2xl text-sm md:text-base leading-relaxed text-left mb-20">
+            Conheça as variantes exclusivas da série Precision. Projetadas com o que há de mais avançado em engenharia suíça para atender aos mais altos padrões de exigência na escrita criativa.
         </p>
+
+        <!-- Grid do Catálogo -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 w-full">
+            {catalog.map((pen) => (
+                <div class="group relative bg-white rounded-3xl border border-stone-200 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 hover:-translate-y-2 transition-all duration-500 flex flex-col overflow-hidden">
+                    <!-- Área da Imagem Simulada -->
+                    <div class="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden relative border-b border-stone-200/50">
+                        <img src={`${cleanBase}${pen.image}`} alt={pen.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    </div>
+                    
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <!-- Textos -->
+                        <h3 class="text-xl md:text-2xl font-display font-medium text-stone-900 mb-3 tracking-tight">{pen.name}</h3>
+                        <p class="text-stone-500 font-light mb-10 text-sm leading-relaxed flex-grow">
+                            {pen.desc}
+                        </p>
+                        
+                        <!-- Botão Ação -->
+                        <div class="mt-auto flex w-full [&>button]:w-full [&>button]:justify-center [&>a]:w-full [&>a]:justify-center">
+                            <Button variant="secondary" icon="solar:bell-linear">Avise-me</Button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
     </main>
 </Layout>
