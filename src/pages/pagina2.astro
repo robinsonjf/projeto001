@@ -1,55 +1,147 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
 const catalog = [
-  { name: 'CAROLINE Precision Core', desc: 'Edição fundida em alumínio aeroespacial com fluxo contínuo. Perfeita para uso técnico rigoroso e traços longos.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Onyx Black', desc: 'Acabamento fosco texturizado a laser com peso balanceado na ponta. O equilíbrio perfeito para esboços diários.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Pearl Edition', desc: 'Superfície de cerâmica branca impecável. Design atemporal e grip otimizado para quem busca a mais alta sofisticação.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Titanium Grip', desc: 'Estrutura ultra-leve e hiper-resistente esculpida em titânio maciço. A ferramenta definitiva para criadores exigentes.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Signature Gold', desc: 'Detalhes refinados banhados a ouro 18k com precisão micrométrica. Uma verdadeira joia para assinaturas de impacto.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Obsidian', desc: 'Tinta especial de alta viscosidade com núcleo alongado e estrutura escura. Máxima autonomia sem perder o estilo.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Carbon Fiber', desc: 'A leveza indescritível do carbono combinada com o balanço de chumbo. A caneta pesa surpreendentes 12 gramas.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Aqua Flow', desc: 'Avançada tecnologia com traço ultrafino de 0.3mm e fluido nanotecnológico hidrofóbico resistente à umidade.', image: '/assets/raw_files/pen_catalog.jpg' },
-  { name: 'CAROLINE Master Tech', desc: 'Exclusiva regulação por capilaridade assistida que impede totalmente falhas, vazamentos ou excessos de tinta na folha.', image: '/assets/raw_files/pen_catalog.jpg' },
+  {
+    name: 'Titanium Stealth Minimalist',
+    desc: 'Design ultra-leve de precisão usinado em titânio aeroespacial Grau 5 com equilíbrio de peso milimétrico.',
+    image: '/assets/raw_files/pen_silver.jpg',
+    tagLeft: 'EDIÇÃO LIMITADA',
+    tagRight: 'ESGOTADO',
+    specs: { pena: 'Ouro 18k Fine', material: 'Titânio G5', recarga: 'Tinteiro / Pistão' }
+  },
+  {
+    name: 'Precision Ceramic Matte',
+    desc: 'Revestimento cerâmico de alta resistência com acabamento fosco aveludado e mecanismo retrátil hidráulico.',
+    image: '/assets/raw_files/pen_black.jpg',
+    tagLeft: 'NOVO LANÇAMENTO',
+    tagRight: 'EM BREVE',
+    specs: { pena: 'Aço Inox M', material: 'Cerâmica Zircônia', recarga: 'Rollerball G2' }
+  },
+  {
+    name: 'Obsidian Vintage Gold',
+    desc: 'Acabamento de latão usinado antireflexo com gravura ornamental e sistema de amortecimento tátil ao escrever.',
+    image: '/assets/raw_files/pen_gold.jpg',
+    tagLeft: 'COLEÇÃO 2026',
+    tagRight: 'ESGOTADO',
+    specs: { pena: 'Carbon EF', material: 'Latão Escovado', recarga: 'Esferográfica' }
+  },
+  {
+    name: 'CAROLINE Pearl White',
+    desc: 'Corpo usinado em alumínio anodizado com empunhadura ergonômica recartilhada para sessões de escrita prolongadas.',
+    image: '/assets/raw_files/pen_silver.jpg',
+    tagLeft: 'EXCLUSIVO',
+    tagRight: 'DISPONÍVEL',
+    specs: { pena: 'Titânio F', material: 'Alumínio 6061', recarga: 'Pistão Direto' }
+  },
+  {
+    name: 'CAROLINE Onyx Stealth',
+    desc: 'Superfície lisa com tratamento térmico anti-risco e clipe integrado usinado em bloco único de aço.',
+    image: '/assets/raw_files/pen_black.jpg',
+    tagLeft: 'SÉRIE ESPECIAL',
+    tagRight: 'EM BREVE',
+    specs: { pena: 'Obsidiana B', material: 'Aço Carbono', recarga: 'Cartucho Padrão' }
+  },
+  {
+    name: 'CAROLINE Brass Heritage',
+    desc: 'Pena de ouro maciço gravada artesanalmente com reservatório de fluxo contínuo por capilaridade.',
+    image: '/assets/raw_files/pen_gold.jpg',
+    tagLeft: 'EDIÇÃO LIMITADA',
+    tagRight: 'ESGOTADO',
+    specs: { pena: 'Ouro 24k Flex', material: 'Latão Antigo', recarga: 'Conversor Deluxe' }
+  },
+  {
+    name: 'CAROLINE Aerospace Silver',
+    desc: 'Engenharia de precisão com corpo monolítico leve e tampa magnética auto-alinhável.',
+    image: '/assets/raw_files/pen_silver.jpg',
+    tagLeft: 'LANÇAMENTO',
+    tagRight: 'EM BREVE',
+    specs: { pena: 'Cobalto EF', material: 'Liga de Alumínio', recarga: 'Gel Hi-Tech' }
+  },
+  {
+    name: 'CAROLINE Nightfall Edition',
+    desc: 'Textura tátil rugosa usinada em CNC para máxima aderência e controle cirúrgico do traço.',
+    image: '/assets/raw_files/pen_black.jpg',
+    tagLeft: 'COLEÇÃO 2026',
+    tagRight: 'ESGOTADO',
+    specs: { pena: 'Tungstênio M', material: 'Zircônia Negra', recarga: 'Rollerball Pro' }
+  },
+  {
+    name: 'CAROLINE Gold Sovereign',
+    desc: 'Design elegante com detalhes banhados e mecanismo de avanço milimétrico por torção macia.',
+    image: '/assets/raw_files/pen_gold.jpg',
+    tagLeft: 'EXCLUSIVO',
+    tagRight: 'EM BREVE',
+    specs: { pena: 'Ouro 18k Broad', material: 'Bronze Nobre', recarga: 'Tinteiro Premium' }
+  }
 ];
 ---
 
 <Layout>
-    <main class="flex flex-col items-start min-h-[75vh] w-full px-6 py-24 md:py-32 max-w-7xl mx-auto">
+    <main class="flex flex-col items-start min-h-[75vh] w-full px-6 py-20 md:py-28 max-w-7xl mx-auto">
         <!-- Header da Página -->
-        <div class="inline-flex items-center mb-6 px-3 py-1 bg-stone-100 rounded-full border border-stone-200 text-xs font-mono text-stone-500 tracking-widest uppercase">
-            <span class="w-1.5 h-1.5 rounded-full bg-stone-400 mr-2"></span>
-            Coleção Oficial
+        <div class="inline-flex items-center mb-4 px-3 py-1 bg-stone-200/60 rounded border border-stone-300/80 text-[11px] font-mono text-stone-700 tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-stone-800 mr-2"></span>
+            Catálogo Oficial
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-stone-900 mb-6 tracking-tight text-left">Catálogo de Produtos</h1>
-        <p class="text-stone-500 font-light max-w-2xl text-sm md:text-base leading-relaxed text-left mb-20">
-            Conheça as variantes exclusivas da série Precision. Projetadas com o que há de mais avançado em engenharia suíça para atender aos mais altos padrões de exigência na escrita criativa.
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-stone-900 mb-4 tracking-tight text-left">
+            Coleção de Precisão
+        </h1>
+        <p class="text-stone-600 font-light max-w-2xl text-sm md:text-base leading-relaxed text-left mb-16">
+            Conheça as variantes exclusivas desenvolvidas em liga aeroespacial, latão artesanal e cerâmica zircônia. Engenharia de ponta a serviço da escrita.
         </p>
 
         <!-- Grid do Catálogo -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
             {catalog.map((pen) => (
-                <div class="group relative bg-white rounded-3xl border border-stone-200 shadow-sm hover:shadow-2xl hover:shadow-stone-200/50 hover:-translate-y-2 transition-all duration-500 flex flex-col overflow-hidden">
-                    <!-- Área da Imagem Simulada -->
-                    <div class="w-full aspect-[4/3] bg-stone-100 flex items-center justify-center overflow-hidden relative border-b border-stone-200/50">
-                        <img src={`${cleanBase}${pen.image}`} alt={pen.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="group relative bg-white rounded-md border border-stone-300/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden">
+                    <!-- Área da Imagem com Badges -->
+                    <div class="w-full aspect-[4/3] bg-stone-200 relative overflow-hidden border-b border-stone-200">
+                        <!-- Badges Sobrepostos -->
+                        <div class="absolute top-3 left-3 z-10">
+                            <span class="px-2.5 py-1 bg-stone-900 text-white text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
+                                {pen.tagLeft}
+                            </span>
+                        </div>
+                        <div class="absolute top-3 right-3 z-10">
+                            <span class="px-2.5 py-1 bg-stone-100/90 backdrop-blur-sm text-stone-600 border border-stone-300/70 text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
+                                {pen.tagRight}
+                            </span>
+                        </div>
+                        <img src={`${cleanBase}${pen.image}`} alt={pen.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     </div>
                     
-                    <div class="p-6 md:p-8 flex flex-col flex-grow">
-                        <!-- Textos -->
-                        <h3 class="text-xl md:text-2xl font-display font-medium text-stone-900 mb-3 tracking-tight">{pen.name}</h3>
-                        <p class="text-stone-500 font-light mb-10 text-sm leading-relaxed flex-grow">
+                    <!-- Conteúdo do Card -->
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-display font-medium text-stone-900 mb-2 tracking-tight">{pen.name}</h3>
+                        <p class="text-stone-500 text-xs font-light leading-relaxed mb-6 flex-grow">
                             {pen.desc}
                         </p>
                         
-                        <!-- Botão Ação -->
-                        <div class="mt-auto flex w-full [&>button]:w-full [&>button]:justify-center [&>a]:w-full [&>a]:justify-center">
-                            <Button variant="secondary" icon="solar:bell-linear">Avise-me</Button>
+                        <!-- Especificações Técnicas -->
+                        <div class="grid grid-cols-3 gap-2 py-3 border-t border-b border-stone-100 mb-6">
+                            <div>
+                                <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Pena</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.pena}>{pen.specs.pena}</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Material</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.material}>{pen.specs.material}</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Recarga</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.recarga}>{pen.specs.recarga}</span>
+                            </div>
                         </div>
+
+                        <!-- Botão AVISE-ME de Largura Total -->
+                        <button class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
+                            <iconify-icon icon="solar:bell-linear" class="text-sm"></iconify-icon>
+                            AVISE-ME
+                        </button>
                     </div>
                 </div>
             ))}
