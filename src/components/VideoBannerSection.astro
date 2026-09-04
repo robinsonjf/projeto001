@@ -5,7 +5,7 @@ interface Props {
 
 const { videoSrc = `${import.meta.env.BASE_URL}/assets/raw_files/video.mp4` } = Astro.props;
 ---
-<section class="relative z-20 w-full bg-black overflow-hidden h-[150px] md:h-[180px]">
+<section class="relative z-20 w-full bg-black overflow-hidden aspect-video md:aspect-auto md:h-[180px]">
   <video 
     autoplay 
     loop 
