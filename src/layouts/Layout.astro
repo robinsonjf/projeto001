@@ -10,7 +10,45 @@ import Footer from '../components/Footer.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>A Caneta Mais Tecnológica do Mundo | Precision Series</title>
+		<title>CAROLINE.PRO | Precision Series</title>
+        
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+        
+        <!-- Tailwind CSS & Iconify -->
+        <script is:inline src="https://cdn.tailwindcss.com"></script>
+        <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+        <script is:inline>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
+                            display: ['Space Grotesk', 'sans-serif'],
+                            cursive: ['Great Vibes', 'cursive'],
+                        },
+                        colors: {
+                            stone: {
+                                50: '#fafaf9',
+                                100: '#f5f5f4',
+                                200: '#e7e5e4',
+                                300: '#d6d3d1',
+                                400: '#a8a29e',
+                                500: '#78716c',
+                                600: '#57534e',
+                                700: '#44403c',
+                                800: '#292524',
+                                900: '#1c1917',
+                            },
+                            'surface-light': '#EAEAE5',
+                        }
+                    }
+                }
+            }
+        </script>
 	</head>
 	<body class="antialiased min-h-screen relative selection:bg-stone-800 selection:text-white">
 		<Header />
@@ -19,11 +57,16 @@ import Footer from '../components/Footer.astro';
 	</body>
 </html>
 
-<style>
+<style is:global>
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+        font-family: 'Inter', sans-serif;
+        background-color: #EAEAE5;
+        color: #1C1917;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
 	}
 </style>
