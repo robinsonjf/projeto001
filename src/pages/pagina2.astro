@@ -1,83 +1,8 @@
----
 import Layout from '../layouts/Layout.astro';
+import { products } from '../data/products';
 
 const baseUrl = import.meta.env.BASE_URL;
 const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-
-const catalog = [
-  {
-    name: 'Titanium Stealth Minimalist',
-    desc: 'Design ultra-leve de precisão usinado em titânio aeroespacial Grau 5 com equilíbrio de peso milimétrico.',
-    image: '/assets/raw_files/pen_silver.jpg',
-    tagLeft: 'EDIÇÃO LIMITADA',
-    tagRight: 'ESGOTADO',
-    specs: { pena: 'Ouro 18k Fine', material: 'Titânio G5', recarga: 'Tinteiro / Pistão' }
-  },
-  {
-    name: 'Precision Ceramic Matte',
-    desc: 'Revestimento cerâmico de alta resistência com acabamento fosco aveludado e mecanismo retrátil hidráulico.',
-    image: '/assets/raw_files/pen_black.jpg',
-    tagLeft: 'NOVO LANÇAMENTO',
-    tagRight: 'EM BREVE',
-    specs: { pena: 'Aço Inox M', material: 'Cerâmica Zircônia', recarga: 'Rollerball G2' }
-  },
-  {
-    name: 'Obsidian Vintage Gold',
-    desc: 'Acabamento de latão usinado antireflexo com gravura ornamental e sistema de amortecimento tátil ao escrever.',
-    image: '/assets/raw_files/pen_gold.jpg',
-    tagLeft: 'COLEÇÃO 2026',
-    tagRight: 'ESGOTADO',
-    specs: { pena: 'Carbon EF', material: 'Latão Escovado', recarga: 'Esferográfica' }
-  },
-  {
-    name: 'CAROLINE Pearl White',
-    desc: 'Corpo de cerâmica branca perolada com brilho acetinado e clipe cromado. Suavidade máxima em papéis nobres.',
-    image: '/assets/raw_files/pen_pearl.jpg',
-    tagLeft: 'EXCLUSIVO',
-    tagRight: 'DISPONÍVEL',
-    specs: { pena: 'Titânio F', material: 'Cerâmica Pérola', recarga: 'Pistão Direto' }
-  },
-  {
-    name: 'CAROLINE Rose Copper',
-    desc: 'Liga refinada de cobre e ouro rosa com ranhuras táteis na empunhadura para controle cirúrgico.',
-    image: '/assets/raw_files/pen_rosegold.jpg',
-    tagLeft: 'SÉRIE ESPECIAL',
-    tagRight: 'EM BREVE',
-    specs: { pena: 'Ouro Rosa 18k', material: 'Cobre Anodizado', recarga: 'Cartucho Padrão' }
-  },
-  {
-    name: 'CAROLINE Carbon Stealth',
-    desc: 'Trama bidirecional em fibra de carbono real com detalhes em aço usinado. Pesa surpreendentes 11 gramas.',
-    image: '/assets/raw_files/pen_carbon.jpg',
-    tagLeft: 'EDIÇÃO LIMITADA',
-    tagRight: 'ESGOTADO',
-    specs: { pena: 'Carbono F', material: 'Fibra 3K', recarga: 'Rollerball Tech' }
-  },
-  {
-    name: 'CAROLINE Bronze Heritage',
-    desc: 'Pena de ouro maciço com corpo pesado usinado em bronze escuro envelhecido com textura rústica.',
-    image: '/assets/raw_files/pen_bronze.jpg',
-    tagLeft: 'HERITAGE',
-    tagRight: 'ESGOTADO',
-    specs: { pena: 'Ouro 24k Flex', material: 'Bronze Antigo', recarga: 'Conversor Deluxe' }
-  },
-  {
-    name: 'CAROLINE Midnight Navy',
-    desc: 'Acabamento metálico azul noturno fosco com anel central serrilhado em aço inoxidável cirúrgico.',
-    image: '/assets/raw_files/pen_blue.jpg',
-    tagLeft: 'LANÇAMENTO',
-    tagRight: 'EM BREVE',
-    specs: { pena: 'Cobalto EF', material: 'Alumínio Azul', recarga: 'Gel Hi-Tech' }
-  },
-  {
-    name: 'CAROLINE Emerald Sovereign',
-    desc: 'Corpo laqueado em verde esmeralda profundo com detalhes em ouro 18k e alimentador por capilaridade.',
-    image: '/assets/raw_files/pen_green.jpg',
-    tagLeft: 'EXCLUSIVO',
-    tagRight: 'EM BREVE',
-    specs: { pena: 'Ouro 18k Broad', material: 'Laca Esmeralda', recarga: 'Tinteiro Premium' }
-  }
-];
 ---
 
 <Layout>
@@ -96,27 +21,27 @@ const catalog = [
 
         <!-- Grid do Catálogo -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full">
-            {catalog.map((pen) => (
+            {products.map((pen) => (
                 <div class="group relative bg-white rounded-md border border-stone-300/80 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden">
                     <!-- Área da Imagem com Badges -->
-                        <a href={`${cleanBase}/pagina3/`} class="w-full aspect-[4/3] bg-stone-200 relative overflow-hidden border-b border-stone-200 block">
-                            <!-- Badges Sobrepostos -->
-                            <div class="absolute top-3 left-3 z-10">
-                                <span class="px-2.5 py-1 bg-stone-900 text-white text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
-                                    {pen.tagLeft}
-                                </span>
-                            </div>
-                            <div class="absolute top-3 right-3 z-10">
-                                <span class="px-2.5 py-1 bg-stone-100/90 backdrop-blur-sm text-stone-600 border border-stone-300/70 text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
-                                    {pen.tagRight}
-                                </span>
-                            </div>
-                            <img src={`${cleanBase}${pen.image}`} alt={pen.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        </a>
+                    <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="w-full aspect-[4/3] bg-stone-200 relative overflow-hidden border-b border-stone-200 block">
+                        <!-- Badges Sobrepostos -->
+                        <div class="absolute top-3 left-3 z-10">
+                            <span class="px-2.5 py-1 bg-stone-900 text-white text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
+                                {pen.tagLeft}
+                            </span>
+                        </div>
+                        <div class="absolute top-3 right-3 z-10">
+                            <span class="px-2.5 py-1 bg-stone-100/90 backdrop-blur-sm text-stone-600 border border-stone-300/70 text-[10px] font-mono font-medium tracking-wider uppercase rounded-sm">
+                                {pen.tagRight}
+                            </span>
+                        </div>
+                        <img src={`${cleanBase}${pen.mainImage}`} alt={pen.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </a>
                     
                     <!-- Conteúdo do Card -->
                     <div class="p-6 flex flex-col flex-grow">
-                        <a href={`${cleanBase}/pagina3/`} class="hover:underline">
+                        <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="hover:underline">
                             <h3 class="text-xl font-display font-medium text-stone-900 mb-2 tracking-tight">{pen.name}</h3>
                         </a>
                         <p class="text-stone-500 text-xs font-light leading-relaxed mb-6 flex-grow">
@@ -127,20 +52,20 @@ const catalog = [
                         <div class="grid grid-cols-3 gap-2 py-3 border-t border-b border-stone-100 mb-6">
                             <div>
                                 <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Pena</span>
-                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.pena}>{pen.specs.pena}</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.cardSpecs.pena}>{pen.cardSpecs.pena}</span>
                             </div>
                             <div>
                                 <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Material</span>
-                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.material}>{pen.specs.material}</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.cardSpecs.material}>{pen.cardSpecs.material}</span>
                             </div>
                             <div>
                                 <span class="block text-[10px] text-stone-400 font-mono uppercase tracking-wider">Recarga</span>
-                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.specs.recarga}>{pen.specs.recarga}</span>
+                                <span class="font-medium text-stone-800 text-[11px] truncate block" title={pen.cardSpecs.recarga}>{pen.cardSpecs.recarga}</span>
                             </div>
                         </div>
 
                         <!-- Botão AVISE-ME de Largura Total -->
-                        <a href={`${cleanBase}/pagina3/`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
+                        <a href={`${cleanBase}/pagina3/?id=${pen.id}`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
                             <iconify-icon icon="solar:bell-linear" class="text-sm"></iconify-icon>
                             AVISE-ME
                         </a>
