@@ -234,7 +234,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
             <div class="absolute inset-0 z-0 flex items-center justify-center bg-stone-100">
                 <!-- Canvas for Image Sequence -->
                 <canvas id="hero-canvas" width="1280" height="720"
-                    class="w-full h-full object-cover relative z-10 scale-[0.8]"></canvas>
+                    class="w-full h-full object-contain relative z-10 scale-[0.7]"></canvas>
             </div>
 
             <!-- OVERLAY CONTENT (Text Layer) -->
@@ -535,8 +535,8 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
             // Canvas Intro Animation
             gsap.fromTo(canvas,
-                { opacity: 0, scale: 0.9 },
-                { opacity: 1, scale: 0.8, duration: 1.5, ease: "power3.out" }
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 0.7, duration: 1.5, ease: "power3.out" }
             );
 
             // Parallax Effects for Hero Text (Blur Out on Scroll)
