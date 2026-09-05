@@ -437,21 +437,29 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById("hero-canvas");
-            const context = canvas.getContext("2d"); // Removed alpha: false to prevent black box on load
+            const context = canvas.getContext("2d");
 
             const frameCount = 192;
             const currentFrame = { index: 0 };
             const images = [];
             let loadedCount = 0;
+            let isRendering = false;
 
             const render = () => {
-                const frameIndex = Math.min(frameCount - 1, Math.max(0, Math.floor(currentFrame.index)));
-                const img = images[frameIndex];
+                if (isRendering) return;
+                isRendering = true;
 
-                if (img && img.complete && img.naturalWidth !== 0) {
-                    context.clearRect(0, 0, canvas.width, canvas.height);
-                    context.drawImage(img, 0, 0, canvas.width, canvas.height);
-                }
+                requestAnimationFrame(() => {
+                    const frameIndex = Math.min(frameCount - 1, Math.max(0, Math.floor(currentFrame.index)));
+                    const img = images[frameIndex];
+
+                    if (img && img.complete && img.naturalWidth !== 0) {
+                        // Reset context state completely to prevent iOS Safari ghosting
+                        canvas.width = canvas.width; 
+                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    }
+                    isRendering = false;
+                });
             };
 
             const preloadImages = () => {
@@ -540,7 +548,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     trigger: ".hero-scrub-container",
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: 1, // Increased smoothing for mobile to ensure frames have time to render
+                    scrub: 0.1, // Reduced scrub delay to prevent rubber-band stuttering on mobile
                     onUpdate: render
                 }
             });
