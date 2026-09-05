@@ -30,10 +30,16 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
     </div>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col justify-center items-center translate-x-full transition-transform duration-300 md:hidden">
-        <nav id="mobile-nav" class="flex flex-col items-center gap-8 text-sm font-mono uppercase tracking-[0.2em] text-stone-400">
-            <a href={`${cleanBase}/`} data-nav="home" class="nav-link hover:text-stone-900 transition-colors">Início</a>
-            <a href={`${cleanBase}/pagina2/`} data-nav="catalog" class="nav-link hover:text-stone-900 transition-colors">Catálogo</a>
+    <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white shadow-2xl border-t border-stone-100 flex-col md:hidden z-40 hidden">
+        <nav id="mobile-nav" class="flex flex-col p-4 gap-2">
+            <a href={`${cleanBase}/`} data-nav="home" class="nav-link-mobile flex items-center justify-between p-4 rounded-xl text-[11px] font-mono uppercase tracking-[0.2em] text-stone-500 hover:bg-stone-50 transition-colors">
+                <span>Início</span>
+                <iconify-icon icon="solar:alt-arrow-right-linear" class="text-lg opacity-50"></iconify-icon>
+            </a>
+            <a href={`${cleanBase}/pagina2/`} data-nav="catalog" class="nav-link-mobile flex items-center justify-between p-4 rounded-xl text-[11px] font-mono uppercase tracking-[0.2em] text-stone-500 hover:bg-stone-50 transition-colors">
+                <span>Catálogo</span>
+                <iconify-icon icon="solar:alt-arrow-right-linear" class="text-lg opacity-50"></iconify-icon>
+            </a>
         </nav>
     </div>
 </header>
@@ -49,12 +55,12 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
         btn?.addEventListener('click', () => {
             isOpen = !isOpen;
             if (isOpen) {
-                menu?.classList.remove('translate-x-full');
-                menu?.classList.add('translate-x-0');
+                menu?.classList.remove('hidden');
+                menu?.classList.add('flex');
                 icon?.setAttribute('icon', 'solar:close-circle-linear');
             } else {
-                menu?.classList.add('translate-x-full');
-                menu?.classList.remove('translate-x-0');
+                menu?.classList.add('hidden');
+                menu?.classList.remove('flex');
                 icon?.setAttribute('icon', 'solar:hamburger-menu-linear');
             }
         });
@@ -65,11 +71,19 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
         const activeTarget = isCatalog ? 'catalog' : 'home';
         
         const activeClasses = ["text-stone-900", "font-medium", "border-b", "border-stone-900", "pb-1"];
+        const activeMobileClasses = ["bg-stone-100", "text-stone-900", "font-medium"];
         
         document.querySelectorAll('.nav-link').forEach(link => {
             if (link.getAttribute('data-nav') === activeTarget) {
                 link.classList.add(...activeClasses);
                 link.classList.remove('text-stone-400', 'hover:text-stone-900');
+            }
+        });
+
+        document.querySelectorAll('.nav-link-mobile').forEach(link => {
+            if (link.getAttribute('data-nav') === activeTarget) {
+                link.classList.add(...activeMobileClasses);
+                link.classList.remove('text-stone-500', 'hover:bg-stone-50');
             }
         });
     });
