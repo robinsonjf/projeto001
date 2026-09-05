@@ -508,6 +508,9 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                 card.style.setProperty("--mouse-y", `${y}px`);
             }
 
+            // Mobile optimizations for ScrollTrigger
+            ScrollTrigger.config({ ignoreMobileResize: true });
+
             // GSAP Scroll Animation
             gsap.to(currentFrame, {
                 index: frameCount - 1,
@@ -516,10 +519,8 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     trigger: ".hero-scrub-container",
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: 0,
-                    onUpdate: () => {
-                        requestAnimationFrame(render);
-                    }
+                    scrub: 0.5, // Smoothing for touch screens
+                    onUpdate: render
                 }
             });
         });
