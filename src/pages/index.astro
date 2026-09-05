@@ -428,7 +428,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById("hero-canvas");
-            const context = canvas.getContext("2d", { alpha: false }); // Optimize rendering performance
+            const context = canvas.getContext("2d"); // Removed alpha: false to prevent black box on load
 
             const frameCount = 192;
             const currentFrame = { index: 0 };
@@ -440,7 +440,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                 const img = images[frameIndex];
 
                 if (img && img.complete && img.naturalWidth !== 0) {
-                    // Draw directly over the previous frame for better performance on mobile
+                    context.clearRect(0, 0, canvas.width, canvas.height);
                     context.drawImage(img, 0, 0, canvas.width, canvas.height);
                 }
             };
@@ -452,18 +452,24 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     const img = new Image();
                     const frameNumber = i.toString().padStart(4, '0');
                     img.src = `${cleanBase}/assets/video_frames/frame_${frameNumber}.jpg`;
+                    
+                    const frameIndex = i - 1;
                     img.onload = () => {
                         loadedCount++;
-                        if (loadedCount === 1) render(); // Draw first frame immediately
-                        // Refresh ScrollTrigger to fix mobile height miscalculations once all images load
-                        if (loadedCount === frameCount) ScrollTrigger.refresh();
+                        // If the currently needed frame just loaded, draw it!
+                        if (frameIndex === Math.floor(currentFrame.index)) {
+                            render();
+                        }
+                        // Refresh ScrollTrigger once everything is loaded
+                        if (loadedCount === frameCount) {
+                            ScrollTrigger.refresh();
+                        }
                     };
                     images.push(img);
                 }
             };
 
             preloadImages();
-            render();
 
             // Initial Reveal Animation (Hero Text Only)
             const heroReveals = document.querySelectorAll('.hero-scrub-container .reveal-up');
@@ -525,7 +531,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     trigger: ".hero-scrub-container",
                     start: "top top",
                     end: "bottom bottom",
-                    scrub: 0.5, // Smoothing for touch screens
+                    scrub: 1, // Increased smoothing for mobile to ensure frames have time to render
                     onUpdate: render
                 }
             });
