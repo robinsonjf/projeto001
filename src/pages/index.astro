@@ -158,76 +158,79 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
     <div class="noise-overlay"></div>
 
-    <!-- HERO SECTION -->
-    <main class="hero-scrub-container relative bg-[#EAEAE5] w-full h-[100dvh] overflow-hidden" data-base-url={cleanBase}>
+    <!-- HERO SECTION (300vh height for scroll space) -->
+    <main class="relative bg-[#EAEAE5] w-full" style="height: 300vh;" id="hero-trigger" data-base-url={cleanBase}>
         <!-- MARCADOR DE DOBRA (REMOVER DEPOIS) -->
         <div class="absolute top-4 left-4 z-[9999] bg-red-600 text-white px-3 py-1 text-sm font-bold rounded shadow-lg border border-red-800 pointer-events-none">Dobra 1</div>
 
-        <!-- VIDEO CENTERPIECE (Canvas Background) -->
-        <div class="absolute inset-0 z-0 flex items-center justify-center bg-stone-100">
-            <!-- Canvas for Image Sequence -->
-            <canvas id="hero-canvas" width="1280" height="720"
-                class="w-full h-full object-cover object-[75%_center] md:object-center md:object-contain relative z-10 origin-center"></canvas>
-        </div>
+        <!-- STICKY CONTAINER (Locks to screen) -->
+        <div class="hero-scrub-container sticky top-0 left-0 w-full h-[100dvh] overflow-hidden">
+            <!-- VIDEO CENTERPIECE (Canvas Background) -->
+            <div class="absolute inset-0 z-0 flex items-center justify-center bg-stone-100">
+                <!-- Canvas for Image Sequence -->
+                <canvas id="hero-canvas" width="1280" height="720"
+                    class="w-full h-full object-cover object-[75%_center] md:object-center md:object-contain relative z-10 origin-center"></canvas>
+            </div>
 
-        <!-- OVERLAY CONTENT (Text Layer) -->
-        <div
-            class="relative z-10 w-full h-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 pointer-events-none">
-
-            <!-- Headline Group (Left aligned) -->
+            <!-- OVERLAY CONTENT (Text Layer) -->
             <div
-                class="col-span-1 md:col-span-10 lg:col-span-7 h-full flex flex-col justify-start pt-32 md:pt-0 md:justify-center px-6 md:pl-24 text-left pointer-events-auto">
-                <!-- Badge -->
-                <div class="inline-flex items-center gap-3 mb-4 reveal-up delay-100">
-                    <span class="w-2 h-2 bg-stone-900 rounded-full"></span>
-                    <span class="text-xs font-mono uppercase tracking-[0.2em] text-stone-500">Precision
-                        Series</span>
+                class="relative z-10 w-full h-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 pointer-events-none">
+
+                <!-- Headline Group (Left aligned) -->
+                <div
+                    class="col-span-1 md:col-span-10 lg:col-span-7 h-full flex flex-col justify-start pt-32 md:pt-0 md:justify-center px-6 md:pl-24 text-left pointer-events-auto">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-3 mb-4 reveal-up delay-100">
+                        <span class="w-2 h-2 bg-stone-900 rounded-full"></span>
+                        <span class="text-xs font-mono uppercase tracking-[0.2em] text-stone-500">Precision
+                            Series</span>
+                    </div>
+
+                    <!-- Headline -->
+                    <h1
+                        class="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.8] mb-5 text-stone-900 -ml-1 md:-ml-1">
+                        <div class="reveal-up delay-100 block">A caneta</div>
+                        <div class="reveal-up delay-200 block text-outline text-transparent">mais tecnológica</div>
+                        <div class="reveal-up delay-300 block">do mundo.</div>
+                    </h1>
+
+                    <!-- Subtext -->
+                    <p
+                        class="text-lg md:text-xl text-stone-600 max-w-lg leading-relaxed reveal-up delay-500 mb-8 font-light">
+                        A Caroline Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores
+                        que exigem perfeição em cada traço.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="flex flex-wrap gap-4 reveal-up delay-700 mt-12 md:mt-0">
+                        <Button variant="primary" href={`${cleanBase}/pagina2/`}>Comprar Agora</Button>
+                        <Button variant="secondary" icon="solar:arrow-down-linear">Explorar</Button>
+                    </div>
                 </div>
 
-                <!-- Headline -->
-                <h1
-                    class="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.8] mb-5 text-stone-900 -ml-1 md:-ml-1">
-                    <div class="reveal-up delay-100 block">A caneta</div>
-                    <div class="reveal-up delay-200 block text-outline text-transparent">mais tecnológica</div>
-                    <div class="reveal-up delay-300 block">do mundo.</div>
-                </h1>
+            </div>
 
-                <!-- Subtext -->
-                <p
-                    class="text-lg md:text-xl text-stone-600 max-w-lg leading-relaxed reveal-up delay-500 mb-8 font-light">
-                    A Caroline Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores
-                    que exigem perfeição em cada traço.
-                </p>
+            <!-- RIGHT SIDE CONTROLS -->
+            <div
+                class="absolute right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-8 z-30 mix-blend-difference text-stone-400">
+                <div class="text-xs font-mono">01</div>
+                <div class="w-px h-12 bg-stone-300"></div>
+                <!-- Controls -->
+            </div>
 
-                <!-- Buttons -->
-                <div class="flex flex-wrap gap-4 reveal-up delay-700 mt-12 md:mt-0">
-                    <Button variant="primary" href={`${cleanBase}/pagina2/`}>Comprar Agora</Button>
-                    <Button variant="secondary" icon="solar:arrow-down-linear">Explorar</Button>
+            <!-- SCROLL HINT -->
+            <div
+                class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 opacity-60 pointer-events-none">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-stone-500">Scroll to Control</span>
+                <div class="w-px h-8 bg-stone-400 overflow-hidden relative">
+                    <div class="absolute top-0 left-0 w-full h-full bg-stone-900 animate-scroll-line"></div>
                 </div>
             </div>
 
-        </div>
-
-        <!-- RIGHT SIDE CONTROLS -->
-        <div
-            class="absolute right-8 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-8 z-30 mix-blend-difference text-stone-400">
-            <div class="text-xs font-mono">01</div>
-            <div class="w-px h-12 bg-stone-300"></div>
-            <!-- Controls -->
-        </div>
-
-        <!-- SCROLL HINT -->
-        <div
-            class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 opacity-60 pointer-events-none">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-stone-500">Scroll to Control</span>
-            <div class="w-px h-8 bg-stone-400 overflow-hidden relative">
-                <div class="absolute top-0 left-0 w-full h-full bg-stone-900 animate-scroll-line"></div>
+            <!-- Gradient Fade to Next Section -->
+            <div
+                class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-stone-50 to-transparent pointer-events-none z-10">
             </div>
-        </div>
-
-        <!-- Gradient Fade to Next Section -->
-        <div
-            class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-stone-50 to-transparent pointer-events-none z-10">
         </div>
     </main>
 
@@ -458,7 +461,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
             };
 
             const preloadImages = () => {
-                const container = document.querySelector('.hero-scrub-container');
+                const container = document.getElementById('hero-trigger');
                 const cleanBase = container ? container.getAttribute('data-base-url') || '' : '';
                 for (let i = 1; i <= frameCount; i++) {
                     const img = new Image();
@@ -498,34 +501,33 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                 { opacity: 1, scale: isMobile ? 0.65 : 0.7, duration: 1.5, ease: "power3.out" }
             );
 
-            // Create a master timeline for the Hero Section to avoid multiple ScrollTriggers conflicting over pinning
-            const heroTimeline = gsap.timeline({
+            // GSAP Scroll Animation for Canvas
+            gsap.to(currentFrame, {
+                index: frameCount - 1,
+                ease: "none",
                 scrollTrigger: {
-                    trigger: ".hero-scrub-container",
+                    trigger: "#hero-trigger", // the 300vh container
                     start: "top top",
-                    end: "+=200%", // Scroll distance
-                    pin: true,
+                    end: "bottom bottom",
                     scrub: 0.1, // Smooth scrub
                     onUpdate: render
                 }
             });
 
-            // 1. Animate Canvas frames (0 to 191)
-            heroTimeline.to(currentFrame, {
-                index: frameCount - 1,
-                ease: "none",
-                duration: 1
-            }, 0); // Start exactly at timeline 0
-
-            // 2. Parallax and fade out the Hero Text (finishes early in the scroll)
-            heroTimeline.to(".hero-scrub-container .reveal-up", {
+            // Parallax and fade out the Hero Text (finishes early in the scroll)
+            gsap.to(".hero-scrub-container .reveal-up", {
                 y: -100,
                 opacity: 0,
                 filter: "blur(15px)",
                 stagger: 0.05,
                 ease: "power1.in",
-                duration: 0.4 // Only takes up the first 40% of the scroll space
-            }, 0);
+                scrollTrigger: {
+                    trigger: "#hero-trigger", // the 300vh container
+                    start: "top top",
+                    end: "30% top",
+                    scrub: true
+                }
+            });
 
             // Reveal Animation for generic sections (Tech Specs, etc)
             gsap.utils.toArray('section .reveal-up, section .reveal-zoom').forEach(function (elem) {
