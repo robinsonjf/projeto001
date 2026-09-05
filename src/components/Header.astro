@@ -1,13 +1,6 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
 const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-
-const pathname = Astro.url.pathname;
-const isCatalog = pathname.includes('/pagina2') || pathname.includes('/pagina3');
-const isHome = !isCatalog;
-
-const activeClass = "text-stone-900 font-medium border-b border-stone-900 pb-1 transition-colors";
-const inactiveClass = "hover:text-stone-900 transition-colors";
 ---
 <header class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
     <div class="absolute inset-0 bg-white/100 backdrop-blur-md border-b border-stone-200/50"></div>
@@ -23,9 +16,9 @@ const inactiveClass = "hover:text-stone-900 transition-colors";
         </a>
 
         <!-- Nav Links -->
-        <nav class="hidden md:flex items-center gap-8 text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400">
-            <a href={`${cleanBase}/`} class={isHome ? activeClass : inactiveClass}>Início</a>
-            <a href={`${cleanBase}/pagina2/`} class={isCatalog ? activeClass : inactiveClass}>Catálogo</a>
+        <nav id="desktop-nav" class="hidden md:flex items-center gap-8 text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400">
+            <a href={`${cleanBase}/`} data-nav="home" class="nav-link hover:text-stone-900 transition-colors">Início</a>
+            <a href={`${cleanBase}/pagina2/`} data-nav="catalog" class="nav-link hover:text-stone-900 transition-colors">Catálogo</a>
         </nav>
 
         <!-- Action -->
@@ -38,15 +31,16 @@ const inactiveClass = "hover:text-stone-900 transition-colors";
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col justify-center items-center translate-x-full transition-transform duration-300 md:hidden">
-        <nav class="flex flex-col items-center gap-8 text-sm font-mono uppercase tracking-[0.2em] text-stone-400">
-            <a href={`${cleanBase}/`} class={isHome ? "text-stone-900 font-medium" : "hover:text-stone-900 transition-colors"}>Início</a>
-            <a href={`${cleanBase}/pagina2/`} class={isCatalog ? "text-stone-900 font-medium" : "hover:text-stone-900 transition-colors"}>Catálogo</a>
+        <nav id="mobile-nav" class="flex flex-col items-center gap-8 text-sm font-mono uppercase tracking-[0.2em] text-stone-400">
+            <a href={`${cleanBase}/`} data-nav="home" class="nav-link hover:text-stone-900 transition-colors">Início</a>
+            <a href={`${cleanBase}/pagina2/`} data-nav="catalog" class="nav-link hover:text-stone-900 transition-colors">Catálogo</a>
         </nav>
     </div>
 </header>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const icon = btn?.querySelector('iconify-icon');
@@ -62,6 +56,20 @@ const inactiveClass = "hover:text-stone-900 transition-colors";
                 menu?.classList.add('translate-x-full');
                 menu?.classList.remove('translate-x-0');
                 icon?.setAttribute('icon', 'solar:hamburger-menu-linear');
+            }
+        });
+
+        // Active Link State
+        const pathname = window.location.pathname;
+        const isCatalog = pathname.includes('/pagina2') || pathname.includes('/pagina3');
+        const activeTarget = isCatalog ? 'catalog' : 'home';
+        
+        const activeClasses = ["text-stone-900", "font-medium", "border-b", "border-stone-900", "pb-1"];
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('data-nav') === activeTarget) {
+                link.classList.add(...activeClasses);
+                link.classList.remove('text-stone-400', 'hover:text-stone-900');
             }
         });
     });
