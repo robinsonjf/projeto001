@@ -1,7 +1,13 @@
 ---
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/' || pathname === '/index.html' || pathname === import.meta.env.BASE_URL;
+const isCatalog = pathname.includes('/pagina2');
+
+const activeClass = "text-stone-900 font-medium border-b border-stone-900 pb-1 transition-colors";
+const inactiveClass = "hover:text-stone-900 transition-colors";
 ---
 <header class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
-    <div class="absolute inset-0 bg-white/70 backdrop-blur-md border-b border-stone-200/50"></div>
+    <div class="absolute inset-0 bg-white/100 backdrop-blur-md border-b border-stone-200/50"></div>
     <div class="max-w-[1440px] mx-auto px-6 py-4 relative flex justify-between items-center">
         <!-- Logo -->
         <div class="flex items-center gap-2 group cursor-pointer">
@@ -9,22 +15,18 @@
                 class="w-8 h-8 bg-stone-900 text-white flex items-center justify-center rounded-sm transition-transform group-hover:rotate-90 duration-500">
                 <iconify-icon icon="solar:pen-new-square-bold-duotone" class="text-xl"></iconify-icon>
             </div>
-            <span class="font-display font-medium tracking-tight text-lg">CAROLINE<span
+            <span class="font-display font-medium tracking-tight text-lg">ARTOOLS<span
                     class="text-stone-400 font-light">.PRO</span></span>
         </div>
 
         <!-- Nav Links -->
-        <nav class="hidden md:flex items-center gap-8 text-xs font-mono uppercase tracking-widest text-stone-500">
-            <a href="#" class="hover:text-stone-900 transition-colors">Design</a>
-            <a href="#" class="hover:text-stone-900 transition-colors">Technology</a>
-            <a href="#" class="hover:text-stone-900 transition-colors">Specs</a>
+        <nav class="hidden md:flex items-center gap-8 text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400">
+            <a href="/" class={isHome ? activeClass : inactiveClass}>Início</a>
+            <a href="/pagina2/" class={isCatalog ? activeClass : inactiveClass}>Catálogo</a>
         </nav>
 
         <!-- Action -->
         <div class="flex items-center gap-4">
-            <iconify-icon icon="solar:bag-linear"
-                class="text-xl cursor-pointer hover:text-stone-500 transition-colors"></iconify-icon>
-            <div class="hidden md:block w-px h-4 bg-stone-300"></div>
             <iconify-icon icon="solar:hamburger-menu-linear"
                 class="text-xl cursor-pointer md:hidden hover:text-stone-500 transition-colors"></iconify-icon>
         </div>

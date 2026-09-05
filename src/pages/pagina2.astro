@@ -66,10 +66,10 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                         </div>
 
                         <!-- Botão AVISE-ME de Largura Total -->
-                        <a href={`${cleanBase}/pagina3/${pen.id}/`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black">
+                        <button onclick={`openNotifyModal('${pen.name}')`} class="w-full py-3 bg-stone-900 hover:bg-stone-800 text-white text-xs font-mono uppercase tracking-widest rounded transition-colors flex items-center justify-center gap-2 group-hover:bg-black focus:outline-none">
                             <iconify-icon icon="solar:bell-linear" class="text-sm"></iconify-icon>
                             AVISE-ME
-                        </a>
+                        </button>
                     </div>
                 </div>
             ))}
