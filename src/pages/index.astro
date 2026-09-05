@@ -167,7 +167,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
         <div class="absolute inset-0 z-0 flex items-center justify-center bg-stone-100">
             <!-- Canvas for Image Sequence -->
             <canvas id="hero-canvas" width="1280" height="720"
-                class="w-full h-full object-cover md:object-contain relative z-10 origin-center"></canvas>
+                class="w-full h-full object-cover object-[75%_center] md:object-center md:object-contain relative z-10 origin-center"></canvas>
         </div>
 
         <!-- OVERLAY CONTENT (Text Layer) -->
@@ -176,7 +176,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
             <!-- Headline Group (Left aligned) -->
             <div
-                class="col-span-1 md:col-span-10 lg:col-span-7 h-full flex flex-col justify-center px-6 md:pl-24 text-left pointer-events-auto">
+                class="col-span-1 md:col-span-10 lg:col-span-7 h-full flex flex-col justify-start pt-32 md:pt-0 md:justify-center px-6 md:pl-24 text-left pointer-events-auto">
                 <!-- Badge -->
                 <div class="inline-flex items-center gap-3 mb-4 reveal-up delay-100">
                     <span class="w-2 h-2 bg-stone-900 rounded-full"></span>
@@ -200,7 +200,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                 </p>
 
                 <!-- Buttons -->
-                <div class="flex flex-wrap gap-4 reveal-up delay-700 mt-24 md:mt-0">
+                <div class="flex flex-wrap gap-4 reveal-up delay-700 mt-12 md:mt-0">
                     <Button variant="primary" href={`${cleanBase}/pagina2/`}>Comprar Agora</Button>
                     <Button variant="secondary" icon="solar:arrow-down-linear">Explorar</Button>
                 </div>
@@ -498,19 +498,34 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                 { opacity: 1, scale: isMobile ? 0.65 : 0.7, duration: 1.5, ease: "power3.out" }
             );
 
-            // Parallax Effects for Hero Text (Blur Out on Scroll)
-            gsap.to(".hero-scrub-container .reveal-up", {
-                y: -60,
-                opacity: 0,
-                filter: "blur(15px)",
-                stagger: 0.05,
+            // Create a master timeline for the Hero Section to avoid multiple ScrollTriggers conflicting over pinning
+            const heroTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".hero-scrub-container",
                     start: "top top",
-                    end: "+=150%",
-                    scrub: true
+                    end: "+=200%", // Scroll distance
+                    pin: true,
+                    scrub: 0.1, // Smooth scrub
+                    onUpdate: render
                 }
             });
+
+            // 1. Animate Canvas frames (0 to 191)
+            heroTimeline.to(currentFrame, {
+                index: frameCount - 1,
+                ease: "none",
+                duration: 1
+            }, 0); // Start exactly at timeline 0
+
+            // 2. Parallax and fade out the Hero Text (finishes early in the scroll)
+            heroTimeline.to(".hero-scrub-container .reveal-up", {
+                y: -100,
+                opacity: 0,
+                filter: "blur(15px)",
+                stagger: 0.05,
+                ease: "power1.in",
+                duration: 0.4 // Only takes up the first 40% of the scroll space
+            }, 0);
 
             // Reveal Animation for generic sections (Tech Specs, etc)
             gsap.utils.toArray('section .reveal-up, section .reveal-zoom').forEach(function (elem) {
@@ -534,20 +549,6 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
             // Mobile optimizations for ScrollTrigger
             ScrollTrigger.config({ ignoreMobileResize: true });
-
-            // GSAP Scroll Animation using Pinning
-            gsap.to(currentFrame, {
-                index: frameCount - 1,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".hero-scrub-container",
-                    start: "top top",
-                    end: "+=150%", // Scroll distance controlled by GSAP, not CSS
-                    pin: true, // Let GSAP handle the sticky behavior and spacer
-                    scrub: 0.1, // Smooth scrub
-                    onUpdate: render
-                }
-            });
         });
 
         // Add custom keyframe for scroll line
