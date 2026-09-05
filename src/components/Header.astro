@@ -1,6 +1,9 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/' || pathname === '/index.html' || pathname === import.meta.env.BASE_URL;
+const isHome = pathname === '/' || pathname === '/index.html' || pathname === baseUrl;
 const isCatalog = pathname.includes('/pagina2');
 
 const activeClass = "text-stone-900 font-medium border-b border-stone-900 pb-1 transition-colors";
@@ -10,19 +13,19 @@ const inactiveClass = "hover:text-stone-900 transition-colors";
     <div class="absolute inset-0 bg-white/100 backdrop-blur-md border-b border-stone-200/50"></div>
     <div class="max-w-[1440px] mx-auto px-6 py-4 relative flex justify-between items-center">
         <!-- Logo -->
-        <div class="flex items-center gap-2 group cursor-pointer">
+        <a href={`${cleanBase}/`} class="flex items-center gap-2 group cursor-pointer">
             <div
                 class="w-8 h-8 bg-stone-900 text-white flex items-center justify-center rounded-sm transition-transform group-hover:rotate-90 duration-500">
                 <iconify-icon icon="solar:pen-new-square-bold-duotone" class="text-xl"></iconify-icon>
             </div>
             <span class="font-display font-medium tracking-tight text-lg">ARTOOLS<span
                     class="text-stone-400 font-light">.PRO</span></span>
-        </div>
+        </a>
 
         <!-- Nav Links -->
         <nav class="hidden md:flex items-center gap-8 text-[10px] font-mono uppercase tracking-[0.2em] text-stone-400">
-            <a href="/" class={isHome ? activeClass : inactiveClass}>Início</a>
-            <a href="/pagina2/" class={isCatalog ? activeClass : inactiveClass}>Catálogo</a>
+            <a href={`${cleanBase}/`} class={isHome ? activeClass : inactiveClass}>Início</a>
+            <a href={`${cleanBase}/pagina2/`} class={isCatalog ? activeClass : inactiveClass}>Catálogo</a>
         </nav>
 
         <!-- Action -->
