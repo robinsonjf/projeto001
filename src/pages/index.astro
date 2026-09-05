@@ -162,7 +162,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
     <!-- HERO SECTION -->
     <main class="hero-scrub-container relative bg-[#EAEAE5]" data-base-url={cleanBase}>
-        <div class="sticky top-0 h-screen w-full overflow-hidden">
+        <div class="sticky top-0 h-[100dvh] w-full overflow-hidden">
 
             <!-- VIDEO CENTERPIECE (Canvas Background) -->
             <div class="absolute inset-0 z-0 flex items-center justify-center bg-stone-100">
@@ -428,18 +428,19 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
         document.addEventListener("DOMContentLoaded", () => {
             const canvas = document.getElementById("hero-canvas");
-            const context = canvas.getContext("2d");
+            const context = canvas.getContext("2d", { alpha: false }); // Optimize rendering performance
 
             const frameCount = 192;
             const currentFrame = { index: 0 };
             const images = [];
+            let loadedCount = 0;
 
             const render = () => {
                 const frameIndex = Math.min(frameCount - 1, Math.max(0, Math.floor(currentFrame.index)));
                 const img = images[frameIndex];
 
                 if (img && img.complete && img.naturalWidth !== 0) {
-                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    // Draw directly over the previous frame for better performance on mobile
                     context.drawImage(img, 0, 0, canvas.width, canvas.height);
                 }
             };
@@ -451,7 +452,12 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
                     const img = new Image();
                     const frameNumber = i.toString().padStart(4, '0');
                     img.src = `${cleanBase}/assets/video_frames/frame_${frameNumber}.jpg`;
-                    img.onload = render;
+                    img.onload = () => {
+                        loadedCount++;
+                        if (loadedCount === 1) render(); // Draw first frame immediately
+                        // Refresh ScrollTrigger to fix mobile height miscalculations once all images load
+                        if (loadedCount === frameCount) ScrollTrigger.refresh();
+                    };
                     images.push(img);
                 }
             };
