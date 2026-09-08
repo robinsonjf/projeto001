@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { products } from '../data/products';
+import { fetchProductsFromGoogleSheets } from '../data/products';
+
+const products = await fetchProductsFromGoogleSheets();
 
 const baseUrl = import.meta.env.BASE_URL;
 const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
