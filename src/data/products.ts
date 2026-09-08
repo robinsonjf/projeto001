@@ -21,7 +21,7 @@ export interface Product {
  * Para ativar: No Google Sheets, vá em Arquivo > Compartilhar > Publicar na Web > Escolha a aba e selecione ".csv".
  * Cole a URL gerada na variável GOOGLE_SHEETS_CSV_URL abaixo ou no arquivo .env.
  */
-export const GOOGLE_SHEETS_CSV_URL = process.env.GOOGLE_SHEETS_CSV_URL || "";
+export const GOOGLE_SHEETS_CSV_URL = process.env.GOOGLE_SHEETS_CSV_URL || "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJ46S7bQHMnvva-haSQWKEQqP1njtqhGXopm5k4yCMTCnhfUq6k_n-0BCfhrJAL5bplG7ypWUkygnM/pub?output=csv";
 
 /**
  * Função para buscar e converter a planilha pública do Google Sheets em array de Produtos.
