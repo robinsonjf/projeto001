@@ -1,8 +1,5 @@
 backend:
-  name: github
-  repo: robinsonjf/projeto001
-  branch: main
-  base_url: "https://projeto001-cms-proxy.vercel.app"
+  name: git-gateway
 
 local_backend: true
 
