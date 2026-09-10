@@ -124,7 +124,7 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
         /* Scrubber Height */
         .hero-scrub-container {
-            height: 150vh;
+            height: 150dvh;
         }
 
         /* Zoom Reveal */
@@ -158,13 +158,13 @@ const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
 
     <div class="noise-overlay"></div>
 
-    <!-- HERO SECTION (300vh height for scroll space) -->
-    <main class="relative bg-[#EAEAE5] w-full" style="height: 300vh;" id="hero-trigger" data-base-url={cleanBase}>
+    <!-- HERO SECTION (300dvh height for scroll space) -->
+    <main class="relative bg-[#EAEAE5] w-full" style="height: 300dvh;" id="hero-trigger" data-base-url={cleanBase}>
         <!-- MARCADOR DE DOBRA (REMOVER DEPOIS) -->
         <div class="absolute top-4 left-4 z-[9999] bg-red-600 text-white px-3 py-1 text-sm font-bold rounded shadow-lg border border-red-800 pointer-events-none">Dobra 1</div>
 
         <!-- STICKY CONTAINER (Locks to screen) -->
-        <div class="hero-scrub-container sticky top-0 left-0 w-full h-screen overflow-hidden">
+        <div class="hero-scrub-container sticky top-0 left-0 w-full h-[100dvh] overflow-hidden">
             <!-- VIDEO CENTERPIECE (Canvas Background) -->
             <div class="absolute inset-0 z-0 flex items-center justify-center bg-[#EAEAE5]">
                 <!-- Canvas for Image Sequence -->

@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: robinsonjf/projeto001
+  branch: main
+
+local_backend: true
+
+media_folder: "public/assets/raw_files"
+public_folder: "/assets/raw_files"
+
+collections:
+  - name: "catalog"
+    label: "Catálogo"
+    files:
+      - file: "src/data/products.json"
+        label: "Produtos"
+        name: "products"
+        extension: "json"
+        format: "json"
+        fields:
+          - name: "products"
+            label: "Lista de Produtos"
+            widget: "list"
+            fields:
+              - {label: "ID (slug na URL)", name: "id", widget: "string"}
+              - {label: "Nome do Produto", name: "name", widget: "string"}
+              - {label: "Subtítulo", name: "subtitle", widget: "string"}
+              - {label: "Preço", name: "price", widget: "string"}
+              - {label: "Status (Ex: EM BREVE)", name: "status", widget: "string"}
+              - {label: "Tag Esquerda", name: "tagLeft", widget: "string", required: false}
+              - {label: "Tag Direita", name: "tagRight", widget: "string", required: false}
+              - {label: "Descrição Longa", name: "desc", widget: "text"}
+              - {label: "Imagem Principal", name: "mainImage", widget: "image"}
+              - name: "gallery"
+                label: "Galeria de Imagens"
+                widget: "list"
+                field: {label: "Imagem", name: "image", widget: "image"}
+              - name: "cardSpecs"
+                label: "Especificações do Card (Vitrine)"
+                widget: "object"
+                fields:
+                  - {label: "Pena", name: "pena", widget: "string"}
+                  - {label: "Material", name: "material", widget: "string"}
+                  - {label: "Recarga", name: "recarga", widget: "string"}
+              - name: "specs"
+                label: "Especificações Detalhadas"
+                widget: "list"
+                fields:
+                  - {label: "Rótulo (ex: Peso)", name: "label", widget: "string"}
+                  - {label: "Valor (ex: 14g)", name: "value", widget: "string"}
+              - name: "highlights"
+                label: "Destaques (Highlights)"
+                widget: "list"
+                fields:
+                  - {label: "Ícone (Nome Solar Icon)", name: "icon", widget: "string"}
+                  - {label: "Título", name: "title", widget: "string"}
+                  - {label: "Descrição", name: "desc", widget: "text"}
