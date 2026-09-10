@@ -18,6 +18,9 @@ import NotifyModal from '../components/NotifyModal.astro';
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
         
+        <!-- Netlify Identity Widget -->
+        <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
         <!-- Tailwind CSS & Iconify -->
         <script is:inline src="https://cdn.tailwindcss.com"></script>
         <script is:inline src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
@@ -56,6 +59,19 @@ import NotifyModal from '../components/NotifyModal.astro';
 		<slot />
 		<Footer />
         <NotifyModal />
+
+        <!-- Netlify Identity Redirect -->
+        <script is:inline>
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                    if (!user) {
+                        window.netlifyIdentity.on("login", () => {
+                            document.location.href = "/admin/";
+                        });
+                    }
+                });
+            }
+        </script>
 	</body>
 </html>
 
